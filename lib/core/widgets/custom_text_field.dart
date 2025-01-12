@@ -4,9 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.label, required this.hintTxt, required this.controller});
+  const CustomTextField({super.key, required this.label, required this.hintTxt, required this.controller,this.inputType = TextInputType.visiblePassword});
   final String label,hintTxt;
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  final TextInputType inputType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,6 +17,8 @@ class CustomTextField extends StatelessWidget {
         Text(label,style: GoogleFonts.vazirmatn(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),),
         SizedBox(height: 12.0,),
         TextFormField(
+          obscureText: inputType == TextInputType.visiblePassword,
+          keyboardType: inputType,
           controller: controller,
           decoration: InputDecoration(
             filled: true,
