@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.label, required this.hintTxt, required this.controller,this.inputType = TextInputType.visiblePassword});
+  const CustomTextField({super.key, required this.label, required this.hintTxt,this.controller,this.inputType = TextInputType.visiblePassword});
   final String label,hintTxt;
   final TextEditingController? controller;
   final TextInputType inputType;

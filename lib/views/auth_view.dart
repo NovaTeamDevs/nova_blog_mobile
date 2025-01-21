@@ -5,6 +5,7 @@ import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 import 'package:nova_blog_mobile/core/constants/app_strings.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_button_widget.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_text_field.dart';
+import 'package:nova_blog_mobile/views/register_view.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({super.key});
@@ -52,7 +53,9 @@ class AuthView extends StatelessWidget {
                     CustomButtonWidget(onTap: () {}, txt: AppStrings.login),
                     SizedBox(height: 12.0,),
                     CustomButtonWidget(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(RegisterView());
+                        },
                         bgColor: AppColors.readColor,
                         txt: AppStrings.createAccount),
                   ],

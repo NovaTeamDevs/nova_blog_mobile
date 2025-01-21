@@ -33,6 +33,7 @@ class AppStrings {
  /// Hints
  static const usernameHint = "نام کاربری خود را وارد کنید...";
  static const usernameExampleHint = "مثلا : mohammad";
+ static const fullNameExampleHint = "مثلا : محمد دهقانی فرد";
  static const emailExampleHint = "مثلا : example@gmail.com";
  static const passwordHint = "*********";
  static const commentTxtHint = "نظر خود درباره مقاله مورد نظر را بنویسید...";
