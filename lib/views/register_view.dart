@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nova_blog_mobile/controllers/register_controller.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 import 'package:nova_blog_mobile/core/constants/app_strings.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_button_widget.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_text_field.dart';
+import 'package:get/get.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -14,7 +19,8 @@ class RegisterView extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: CustomButtonWidget(onTap: () {}, txt: AppStrings.createAccount),
+        child: GetBuilder<RegisterController>(
+            builder: (controller) => CustomButtonWidget(onTap: () {}, txt: AppStrings.createAccount)),
       ),
       appBar: AppBar(
         title: Text(AppStrings.createAccount,style: GoogleFonts.vazirmatn(fontSize: 24,fontWeight: FontWeight.bold)),
@@ -41,41 +47,131 @@ class RegisterView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.lightGreyColor
-                ),
-                child: Icon(Icons.camera_alt_outlined,size: 64,color: context.theme.colorScheme.primary,),
+              GetBuilder<RegisterController>(
+                init: RegisterController(),
+                  builder: (controller) {
+                    return controller.userImage == null
+                      ? GestureDetector(
+                          onTap: () {
+                            Get.bottomSheet(
+                                backgroundColor: Colors.white,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 20),
+                                  child: Column(
+                                    spacing: 16,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                          controller.takePhoto(source: ImageSource.camera);
+                                        },
+                                        child: Row(
+                                          spacing: 16,
+                                          children: [
+                                            Icon(
+                                              Icons.camera_alt_outlined,
+                                              color: context
+                                                  .theme.colorScheme.primary,
+                                            ),
+                                            Text(
+                                              AppStrings.takeNewPhoto,
+                                              style: GoogleFonts.vazirmatn(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                          controller.takePhoto(source: ImageSource.gallery);
+                                          },
+                                        child: Row(
+                                          spacing: 16,
+                                          children: [
+                                            Icon(
+                                              Icons.image,
+                                              color: context
+                                                  .theme.colorScheme.primary,
+                                            ),
+                                            Text(
+                                              AppStrings.getPhotoFromGallery,
+                                              style: GoogleFonts.vazirmatn(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w700),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ));
+                          },
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.lightGreyColor),
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              size: 64,
+                              color: context.theme.colorScheme.primary,
+                            ),
+                          ),
+                        )
+                      : SizedBox(
+                        width: 120,
+                        height: 120,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(1000),
+                            child: Image.file(
+                              File(controller.userImage!.path),
+                              fit: BoxFit.cover,)));
+                },
               ),
-              CustomTextField(
-                label: AppStrings.username,
-                hintTxt: AppStrings.usernameExampleHint,
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                label: AppStrings.fullName,
-                hintTxt: AppStrings.fullNameExampleHint,
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                label: AppStrings.email,
-                hintTxt: AppStrings.emailExampleHint,
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                label: AppStrings.password,
-                hintTxt: AppStrings.passwordHint,
-                inputType: TextInputType.visiblePassword,
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                label: AppStrings.repeatPassWord,
-                hintTxt: AppStrings.passwordHint,
-                inputType: TextInputType.visiblePassword,
-              ),
+              GetBuilder<RegisterController>(
+                  builder: (controller) {
+                    return Column(
+                      children: [
+                        CustomTextField(
+                          controller: controller.usernameTxtController,
+                          label: AppStrings.username,
+                          hintTxt: AppStrings.usernameExampleHint,
+                        ),
+                        SizedBox(height: 16),
+                        CustomTextField(
+                          controller: controller.fullNameTxtController,
+                          label: AppStrings.fullName,
+                          hintTxt: AppStrings.fullNameExampleHint,
+                        ),
+                        SizedBox(height: 16),
+                        CustomTextField(
+                          controller: controller.emailTxtController,
+                          label: AppStrings.email,
+                          hintTxt: AppStrings.emailExampleHint,
+                        ),
+                        SizedBox(height: 16),
+                        CustomTextField(
+                          controller: controller.passwordTxtController,
+                          label: AppStrings.password,
+                          hintTxt: AppStrings.passwordHint,
+                          inputType: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 16),
+                        CustomTextField(
+                          controller: controller.repeatPasswordTxtController,
+                          label: AppStrings.repeatPassWord,
+                          hintTxt: AppStrings.passwordHint,
+                          inputType: TextInputType.visiblePassword,
+                        ),
+                      ],
+                    );
+                  },
+              )
             ],
           ),
         ),
