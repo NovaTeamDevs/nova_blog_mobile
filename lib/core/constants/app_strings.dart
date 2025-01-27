@@ -3,7 +3,7 @@ class AppStrings {
  static const welcomeMessage = "به نُوا بلاگ خوش اومدی!";
  static const username = "نام کاربری";
  static const password = "رمز عبور";
- static const login = "رمز عبور";
+ static const login = "ورود به حساب کاربری";
  static const createAccount = "ساخت حساب کاربری";
  static const fullName = "نام و نام خانوادگی";
  static const email = "ایمیل";
