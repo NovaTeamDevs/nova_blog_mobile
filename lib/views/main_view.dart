@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nova_blog_mobile/controllers/navigation_controller.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_bottom_navigation.dart';
+import 'package:nova_blog_mobile/views/home_view.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -18,7 +19,7 @@ class MainView extends StatelessWidget {
                   child: IndexedStack(
                     index: controller.selectedIndex,
                     children: [
-                      TestScreen(color: Colors.red),
+                      HomeView(),
                       TestScreen(color: Colors.green),
                       TestScreen(color: Colors.blue),
                       TestScreen(color: Colors.yellow),

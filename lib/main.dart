@@ -16,6 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'NovaBlog',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.scaffoldColor,
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.scaffoldColor,
+          elevation: 0
+        ),
         colorScheme: ColorScheme.light(
           primary: AppColors.primaryColor,
           primaryContainer: AppColors.whiteColor,
