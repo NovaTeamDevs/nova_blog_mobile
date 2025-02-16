@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nova_blog_mobile/controllers/login_controller.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 import 'package:nova_blog_mobile/core/constants/app_strings.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_button_widget.dart';
@@ -33,35 +34,42 @@ class AuthView extends StatelessWidget {
                     BoxShadow(color: Colors.black.withValues(alpha: 0.15),blurRadius: 30)
                   ]
                 ),
-                child: Column(
-                  children: [
-                    Text(AppStrings.welcomeMessage,style: GoogleFonts.vazirmatn(fontSize: 24,color: Colors.black,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 24.0,),
-                    CustomTextField(
-                        label: AppStrings.username,
-                        hintTxt: AppStrings.usernameHint,
-                        controller: TextEditingController()
-                    ),
-                    SizedBox(height: 12.0,),
-                    CustomTextField(
-                      inputType: TextInputType.visiblePassword,
-                        label: AppStrings.password,
-                        hintTxt: AppStrings.passwordHint,
-                        controller: TextEditingController()
-                    ),
-                    SizedBox(height: 32.0,),
+                child: GetBuilder<LoginController>(
+                  init: LoginController(),
+                  builder: (controller) {
+                    return Column(
+                      children: [
+                        Text(AppStrings.welcomeMessage,style: GoogleFonts.vazirmatn(fontSize: 24,color: Colors.black,fontWeight: FontWeight.bold),),
+                        SizedBox(height: 24.0,),
+                        CustomTextField(
+                            label: AppStrings.email,
+                            hintTxt: AppStrings.emailExampleHint,
+                            controller: controller.emailTxtController
+                        ),
+                        SizedBox(height: 12.0,),
+                        CustomTextField(
+                          inputType: TextInputType.visiblePassword,
+                            label: AppStrings.password,
+                            hintTxt: AppStrings.passwordHint,
+                            controller: controller.passwordTxtController
+                        ),
+                        SizedBox(height: 32.0,),
 
-                    CustomButtonWidget(onTap: () {
-                      Get.to(MainView());
-                    }, txt: AppStrings.login),
-                    SizedBox(height: 12.0,),
-                    CustomButtonWidget(
-                        onTap: () {
-                          Get.to(RegisterView());
-                        },
-                        bgColor: AppColors.readColor,
-                        txt: AppStrings.createAccount),
-                  ],
+                        CustomButtonWidget(
+                          isLoading: controller.isLoading,
+                            onTap: () async {
+                         await controller.login();
+                        }, txt: AppStrings.login),
+                        SizedBox(height: 12.0,),
+                        CustomButtonWidget(
+                            onTap: () {
+                              Get.to(RegisterView());
+                            },
+                            bgColor: AppColors.readColor,
+                            txt: AppStrings.createAccount),
+                      ],
+                    );
+                  }
                 ),
               )
             ],
