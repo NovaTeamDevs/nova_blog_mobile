@@ -5,7 +5,7 @@ class AppStrings {
  static const password = "رمز عبور";
  static const login = "ورود به حساب کاربری";
  static const createAccount = "ساخت حساب کاربری";
- static const fullName = "نام و نام خانوادگی";
+ static const fullName = "نام خانوادگی";
  static const email = "ایمیل";
  static const repeatPassWord = "تکرار رمز عبور";
  static const takeNewPhoto = "گرفتن عکس جدید با دوربین";

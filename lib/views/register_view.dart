@@ -20,7 +20,16 @@ class RegisterView extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
         child: GetBuilder<RegisterController>(
-            builder: (controller) => CustomButtonWidget(onTap: () {}, txt: AppStrings.createAccount)),
+            id: "registerBtn",
+            builder: (controller) => CustomButtonWidget(
+                onTap: () async {
+                  final bool isRegister = await controller.register();
+
+                  if(isRegister) {
+                    Get.snackbar("عملیات موفق", "ثبت نام با موفقیت انجام شد!",backgroundColor: Colors.green);
+                  }
+                },
+                txt: AppStrings.createAccount,isLoading: controller.isLoading)),
       ),
       appBar: AppBar(
         title: Text(AppStrings.createAccount,style: GoogleFonts.vazirmatn(fontSize: 24,fontWeight: FontWeight.bold)),
@@ -138,13 +147,13 @@ class RegisterView extends StatelessWidget {
                     return Column(
                       children: [
                         CustomTextField(
-                          controller: controller.usernameTxtController,
-                          label: AppStrings.username,
+                          controller: controller.firstnameTxtController,
+                          label: "نام شما",
                           hintTxt: AppStrings.usernameExampleHint,
                         ),
                         SizedBox(height: 16),
                         CustomTextField(
-                          controller: controller.fullNameTxtController,
+                          controller: controller.lastnameTxtController,
                           label: AppStrings.fullName,
                           hintTxt: AppStrings.fullNameExampleHint,
                         ),

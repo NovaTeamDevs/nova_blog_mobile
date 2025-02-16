@@ -5,8 +5,10 @@ class WebService {
     BaseOptions(
       baseUrl: "https://blog.novadev.ir/api",
       headers: {
-        "Content-Type" : "application/json"
-      }
+        "Content-Type" : "application/json",
+        "Accept" : "application/json"
+      },
+      validateStatus: (status) => status! < 500,
     )
   );
 

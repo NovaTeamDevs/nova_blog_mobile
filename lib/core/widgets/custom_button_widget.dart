@@ -9,6 +9,7 @@ class CustomButtonWidget extends StatelessWidget {
      this.width = double.infinity,
      this.height = 48.0,
      this.radius = 12.0,
+    this.isLoading = false,
     required this.onTap,
     required this.txt
   });
@@ -16,6 +17,7 @@ class CustomButtonWidget extends StatelessWidget {
   final double width,height,radius;
   final VoidCallback onTap;
   final String txt;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -28,7 +30,10 @@ class CustomButtonWidget extends StatelessWidget {
         backgroundColor: WidgetStatePropertyAll(bgColor),
         minimumSize: WidgetStatePropertyAll(Size(width,height))
       ),
-        onPressed: onTap,
-        child: Text(txt,style: GoogleFonts.vazirmatn(fontSize: 14,fontWeight: FontWeight.bold,color: AppColors.whiteColor),));
+        onPressed: isLoading? (){}  : onTap,
+        child: isLoading? Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: CircularProgressIndicator(color: Colors.white,),
+        ) : Text(txt,style: GoogleFonts.vazirmatn(fontSize: 14,fontWeight: FontWeight.bold,color: AppColors.whiteColor),));
   }
 }
