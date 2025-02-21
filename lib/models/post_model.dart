@@ -1,7 +1,9 @@
+import 'package:nova_blog_mobile/models/category_model.dart';
+
 class PostModel {
   int? id;
   String? title;
-  Category? category;
+  CategoryModel? category;
   Author? author;
   String? content;
   String? tags;
@@ -28,7 +30,7 @@ class PostModel {
     id = json['id'];
     title = json['title'];
     category = json['category'] != null
-        ? new Category.fromJson(json['category'])
+        ? new CategoryModel.fromJson(json['category'])
         : null;
     author =
     json['author'] != null ? new Author.fromJson(json['author']) : null;
@@ -43,21 +45,7 @@ class PostModel {
 
 }
 
-class Category {
-  int? id;
-  String? name;
-  String? description;
 
-  Category({this.id, this.name, this.description});
-
-  Category.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    description = json['description'];
-  }
-
-
-}
 
 class Author {
   int? id;

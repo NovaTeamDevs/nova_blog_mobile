@@ -34,7 +34,7 @@ class CustomBottomNavigation extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _NavItem(iconPath: "assets/svg/home.svg", selected: selectedIndex == 0, onTap: () => onChange(0),),
-                  _NavItem(iconPath: "assets/svg/file-lines.svg", selected: selectedIndex == 1, onTap: () => onChange(1),),
+                  _NavItem(iconPath: "assets/svg/category.svg", selected: selectedIndex == 1, onTap: () => onChange(1),),
                   _NavItem(iconPath: "assets/svg/heart.svg", selected: selectedIndex == 2, onTap: () => onChange(2),),
                   _NavItem(iconPath: "assets/svg/user-settings.svg", selected: selectedIndex == 3, onTap: () => onChange(3),),
                 ],
