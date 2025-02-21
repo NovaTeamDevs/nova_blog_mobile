@@ -4,6 +4,7 @@ import 'package:nova_blog_mobile/controllers/navigation_controller.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_bottom_navigation.dart';
 import 'package:nova_blog_mobile/views/categories_view.dart';
 import 'package:nova_blog_mobile/views/home_view.dart';
+import 'package:nova_blog_mobile/views/search_view.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -11,6 +12,7 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GetBuilder<NavigationController>(
         init: NavigationController(),
           builder: (controller) {
@@ -22,7 +24,7 @@ class MainView extends StatelessWidget {
                     children: [
                       HomeView(),
                       CategoriesView(),
-                      TestScreen(color: Colors.blue),
+                      SearchView(),
                       TestScreen(color: Colors.yellow),
                     ],
                   ),

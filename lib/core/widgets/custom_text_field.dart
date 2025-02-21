@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, required this.label, required this.hintTxt,this.controller,this.inputType = TextInputType.text});
+  const CustomTextField({super.key, required this.label, required this.hintTxt,this.controller,this.inputType = TextInputType.text, this.onChange});
   final String label,hintTxt;
   final TextEditingController? controller;
   final TextInputType inputType;
+  final Function(String value)? onChange;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: inputType == TextInputType.visiblePassword,
           keyboardType: inputType,
           controller: controller,
+          onChanged: onChange,
           decoration: InputDecoration(
             filled: true,
             hintText: hintTxt,
