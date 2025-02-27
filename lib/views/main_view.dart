@@ -4,6 +4,7 @@ import 'package:nova_blog_mobile/controllers/navigation_controller.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_bottom_navigation.dart';
 import 'package:nova_blog_mobile/views/categories_view.dart';
 import 'package:nova_blog_mobile/views/home_view.dart';
+import 'package:nova_blog_mobile/views/profile_view.dart';
 import 'package:nova_blog_mobile/views/search_view.dart';
 
 class MainView extends StatelessWidget {
@@ -25,7 +26,7 @@ class MainView extends StatelessWidget {
                       HomeView(),
                       CategoriesView(),
                       SearchView(),
-                      TestScreen(color: Colors.yellow),
+                      ProfileView()
                     ],
                   ),
                 ),
