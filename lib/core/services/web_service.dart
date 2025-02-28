@@ -31,7 +31,7 @@ class WebService {
       throw Exception("You cant provide both body  and formData");
     }
 
-    final response = await dio.post(endPoint,data: body);
+    final response = await dio.post(endPoint,data: body ?? formData);
     return response;
   }
 
