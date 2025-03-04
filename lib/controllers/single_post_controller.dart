@@ -9,6 +9,7 @@ class SinglePostController extends GetxController {
   final int id;
   final WebService _webService = WebService();
   PostModel? post;
+  bool likeProcess = false;
   
   Future<void> getPost() async {
     final response = await _webService.getRequest(endPoint: "/post/$id",token: await _getToken());
@@ -24,8 +25,11 @@ class SinglePostController extends GetxController {
   }
 
   Future<void> likeOrDisLike() async {
+    likeProcess = true;
+    update();
     final response = await _webService.postRequest(endPoint: "/post/like-dislike/$id",token: await _getToken());
-
+    likeProcess = false;
+    update();
     if(response.statusCode == 200) {
       post!.isLiked = !post!.isLiked!;
       update();
@@ -39,6 +43,12 @@ class SinglePostController extends GetxController {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
     final token = await secureStorage.read(key: "token");
     return token;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getPost();
   }
     
 }

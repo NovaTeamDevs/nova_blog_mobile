@@ -7,6 +7,7 @@ import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_indicator_widget.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_load_net_work_widget.dart';
 import 'package:nova_blog_mobile/core/widgets/post_item_widget.dart';
+import 'package:nova_blog_mobile/views/single_post_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -65,7 +66,9 @@ class HomeView extends StatelessWidget {
                           child: CircularProgressIndicator())) : ListView.builder(
                           itemCount: controller.postList!.length,
                           itemBuilder: (context, index) {
-                            return PostItemWidget(post: controller.postList![index]);
+                            return GestureDetector(
+                                onTap: () => Get.to(SinglePostView(id: controller.postList![index].id!)),
+                                child: PostItemWidget(post: controller.postList![index]));
                           },
                       )
                   ),
