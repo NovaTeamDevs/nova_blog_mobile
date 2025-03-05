@@ -38,6 +38,7 @@ class CommentController  extends GetxController {
     update();
 
     if(response.statusCode == 201) {
+      commentTxt.clear();
       Get.snackbar("عملیات موفق", "کامنت شما بعد از تایید مدیریت نمایش داده میشود",backgroundColor: Colors.green);
     } else {
       final errorMessage = response.data["message"];
@@ -49,5 +50,11 @@ class CommentController  extends GetxController {
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
     final token = await secureStorage.read(key: "token");
     return token;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllComments();
   }
 }

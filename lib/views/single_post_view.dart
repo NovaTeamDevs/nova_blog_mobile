@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nova_blog_mobile/controllers/single_post_controller.dart';
 import 'package:nova_blog_mobile/core/constants/app_colors.dart';
 import 'package:nova_blog_mobile/core/widgets/custom_load_net_work_widget.dart';
+import 'package:nova_blog_mobile/views/comments_view.dart';
 
 class SinglePostView extends StatelessWidget {
   const SinglePostView({super.key, required this.id});
@@ -17,7 +18,7 @@ class SinglePostView extends StatelessWidget {
           return Scaffold(
             floatingActionButton: FloatingActionButton(
               backgroundColor: AppColors.primaryColor,
-              onPressed: () {},
+              onPressed: () {Get.to(CommentsView(id: id));},
               child: Icon(CupertinoIcons.chat_bubble_2,color: Colors.white,),),
             body: controller.post == null ? Center(
               child: CircularProgressIndicator(),
