@@ -9,8 +9,27 @@ import 'package:nova_blog_mobile/core/widgets/custom_load_net_work_widget.dart';
 import 'package:nova_blog_mobile/core/widgets/post_item_widget.dart';
 import 'package:nova_blog_mobile/views/single_post_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final ScrollController scrollController = ScrollController();
+
+  void onScroll() {
+    if(scrollController.position.pixels >= scrollController.position.maxScrollExtent - 200) {
+      Get.find<HomeController>().getHomePost();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(onScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +76,20 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 12.0,),
-                  Text("اخرین پست های منتشر شده",style: GoogleFonts.vazirmatn(fontSize: 14,color: AppColors.greyColor),),
+                  Row(
+                    children: [
+                      Text("اخرین پست های منتشر شده",style: GoogleFonts.vazirmatn(fontSize: 14,color: AppColors.greyColor),),
+                      Spacer(),
+                      Text(" تعداد مقالات : ${controller.postList?.length}",style: GoogleFonts.vazirmatn(fontSize: 14,color: AppColors.greyColor),),
+                    ],
+                  ),
                   SizedBox(height: 16.0,),
                   Expanded(
                       child: controller.postList == null ? Center(child: SizedBox(
                           width: 24,
                           height: 24,
                           child: CircularProgressIndicator())) : ListView.builder(
+                          controller: scrollController,
                           itemCount: controller.postList!.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(

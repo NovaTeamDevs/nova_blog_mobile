@@ -7,6 +7,8 @@ import 'package:nova_blog_mobile/models/post_model.dart';
 class HomeController extends GetxController {
   final WebService _webService = WebService();
   int selectedSliderIndex = 0;
+  int currentPage = 1;
+  bool isLoading = false;
   List<PostModel>? postList;
 
   void updateSliderIndicator(int newIndex) {
@@ -14,11 +16,14 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> getHomePost({int? perPage,int? page}) async {
+  Future<void> getHomePost({int perPage = 5}) async {
+
+    if(isLoading) return;
+    isLoading = true;
+    update();
+
     final Map<String,dynamic> params = {
-      if(page != null)
-        "page" : page,
-      if(perPage != null)
+        "page" : currentPage,
         "per_page" : perPage
     };
     final FlutterSecureStorage secureStorage = FlutterSecureStorage();
@@ -26,11 +31,12 @@ class HomeController extends GetxController {
     final response = await _webService.getRequest(endPoint: "/posts",params: params,token: token);
 
     if(response.statusCode == 200 && response.data["data"] != null) {
-      final List<PostModel> posts = [];
+      postList ??= [];
       for(var post in response.data["data"]) {
-        posts.add(PostModel.fromJson(post));
+        postList?.add(PostModel.fromJson(post));
       }
-      postList = posts;
+      currentPage++;
+      isLoading = false;
       update();
     } else {
       final errorMessage = response.data["message"];
